@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('alamat');
+            $table->tinyInteger('level')->default(2);// 0 = admin, 1 = verifikator, 2 = user biasa
             $table->string('password');
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
