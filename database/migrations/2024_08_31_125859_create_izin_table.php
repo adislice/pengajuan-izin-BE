@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('jenis_izin');
             $table->string('alasan');
-            $table->string('alasan_ditolak')->nullable();
+            $table->string('komentar');
             $table->enum('status', ['diajukan', 'ditolak', 'direvisi', 'diterima'])->default('diajukan');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
