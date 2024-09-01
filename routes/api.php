@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,13 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('user', [AuthController::class, 'getLoggedUser']);
 
+});
+
+Route::group([
+    'middleware' => 'api',
+], function($router) {
+    Route::get('user', [UserController::class, 'index']);
+    Route::get('user/{id}', [UserController::class, 'show']);
+    Route::post('user/create-verifikator', [UserController::class, 'createVerifikator']);
+    Route::put('user/{id}/promote', [UserController::class, 'promoteUser']);
 });
