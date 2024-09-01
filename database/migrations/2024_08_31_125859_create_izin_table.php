@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('izin', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->date('tanggal');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->string('jenis_izin');
             $table->string('alasan');
-            $table->string('komentar');
+            $table->string('komentar')->nullable();
             $table->enum('status', ['diajukan', 'ditolak', 'direvisi', 'diterima'])->default('diajukan');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

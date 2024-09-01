@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IzinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,15 @@ Route::group([
     Route::post('user/create-verifikator', [UserController::class, 'createVerifikator']);
     Route::put('user/{id}/promote', [UserController::class, 'promoteUser']);
     Route::post('user/{id}/verify', [UserController::class, 'verify']);
+
+    Route::get('izin', [IzinController::class, 'index']);
+    Route::get('izin/by-user', [IzinController::class, 'indexByUser']);
+    Route::post('izin', [IzinController::class, 'store']);
+    Route::get('izin/{id}', [IzinController::class, 'show']);
+    Route::put('izin/{id}', [IzinController::class, 'update']);
+    Route::delete('izin/{id}', [IzinController::class, 'destroy']);
+    Route::put('izin/{id}/accept', [IzinController::class, 'accept']);
+    Route::put('izin/{id}/reject', [IzinController::class, 'reject']);
+    Route::put('izin/{id}/revise', [IzinController::class, 'revise']);
+
 });
