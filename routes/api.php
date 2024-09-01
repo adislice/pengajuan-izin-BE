@@ -38,4 +38,5 @@ Route::group([
     Route::get('user/{id}', [UserController::class, 'show']);
     Route::post('user/create-verifikator', [UserController::class, 'createVerifikator']);
     Route::put('user/{id}/promote', [UserController::class, 'promoteUser']);
+    Route::post('user/{id}/verify', [UserController::class, 'verify']);
 });

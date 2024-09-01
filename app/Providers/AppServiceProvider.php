@@ -30,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('read-user', function (User $user) {
             return in_array($user->level, [0, 1, 2]);
         });
+        Gate::define('verify-user', function (User $user) {
+            return in_array($user->level, [1]);
+        });
     }
 }
