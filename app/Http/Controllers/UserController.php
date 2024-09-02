@@ -76,4 +76,11 @@ class UserController extends Controller
         return response()->json(['message' => 'Verify user success']);
     }
 
+    public function show(string $id) {
+
+        $data = User::find($id);
+
+        return response()->json($data);
+    }
+
 }

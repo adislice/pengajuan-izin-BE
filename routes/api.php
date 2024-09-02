@@ -21,20 +21,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('auth/login', [AuthController::class, 'login']);
+
 Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'middleware' => 'auth:api'
 ], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('user', [AuthController::class, 'getLoggedUser']);
 
-});
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::post('auth/refresh', [AuthController::class, 'refresh']);
+    Route::post('auth/user', [AuthController::class, 'getLoggedUser']);
 
-Route::group([
-    'middleware' => 'api',
-], function($router) {
     Route::get('user', [UserController::class, 'index']);
     Route::get('user/{id}', [UserController::class, 'show']);
     Route::post('user/create-verifikator', [UserController::class, 'createVerifikator']);
@@ -51,4 +47,8 @@ Route::group([
     Route::put('izin/{id}/reject', [IzinController::class, 'reject']);
     Route::put('izin/{id}/revise', [IzinController::class, 'revise']);
 
+    Route::get('me', function() {
+        return auth()->user();
+    });
 });
+

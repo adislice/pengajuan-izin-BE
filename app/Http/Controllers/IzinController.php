@@ -55,7 +55,9 @@ class IzinController extends Controller
 
     public function show(string $id)
     {
-        $data = Izin::find($id);
+        $data = Izin::with(['user' => function ($q) {
+            $q->select('id', 'nama');
+        }])->find($id);
 
         return response()->json($data);
     }
