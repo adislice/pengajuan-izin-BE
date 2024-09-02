@@ -36,14 +36,15 @@ class IzinController extends Controller
     {
         $request->validate([
             'tanggal_mulai' => 'required',
-            'tanggal_selesai' => 'required',
             'jenis_izin' => 'required',
             'alasan' => 'required',
         ]);
 
+        $tglSelesai = $request->tanggal_selesai ?? $request->tanggal_mulai;
+
         Izin::create([
             'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_selesai' => $request->tanggal_selesai,
+            'tanggal_selesai' => $tglSelesai,
             'jenis_izin' => $request->jenis_izin,
             'alasan' => $request->alasan,
             'user_id' => auth()->user()->id,
