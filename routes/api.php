@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -47,6 +48,8 @@ Route::group([
     Route::put('izin/{id}/reject', [IzinController::class, 'reject']);
     Route::put('izin/{id}/revise', [IzinController::class, 'revise']);
     Route::put('izin/{id}/cancel', [IzinController::class, 'cancel']);
+
+    Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::get('me', function() {
         return auth()->user();
