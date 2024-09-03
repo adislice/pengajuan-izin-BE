@@ -11,9 +11,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        if (!Gate::allows('read-user')) {
-            abort(403);
-        }
+        Gate::authorize('list-user');
         
         $query = User::query();
         if ($request->filter == 'verified') {
@@ -34,9 +32,8 @@ class UserController extends Controller
 
     public function createVerifikator(Request $request)
     {
-        if (!Gate::allows('create-verifikator')) {
-            abort(403);
-        }
+        Gate::authorize('create-verifikator');
+
         $request->validate([
             'nama' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -53,9 +50,7 @@ class UserController extends Controller
     }
 
     public function promoteUser(string $id) {
-        if (!Gate::allows('promote-user')) {
-            abort(403);
-        }
+        Gate::authorize('promote-user');
 
         User::find($id)->update([
             'level' => 1
@@ -65,9 +60,7 @@ class UserController extends Controller
     }
 
     public function verify(string $id) {
-        if (!Gate::allows('verify-user')) {
-            abort(403);
-        }
+        Gate::authorize('verify-user');
 
         User::find($id)->update([
             'verified_at' => Carbon::now()
@@ -77,6 +70,7 @@ class UserController extends Controller
     }
 
     public function show(string $id) {
+        Gate::authorize('show-user');
 
         $data = User::find($id);
 

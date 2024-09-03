@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class IzinController extends Controller
 {
     public function index(Request $request)
     {
+        Gate::authorize('list-izin');
+
         $query = Izin::query()->with(['user' => function ($q) {
             $q->select('id', 'nama');
         }]);
@@ -22,6 +25,8 @@ class IzinController extends Controller
 
     public function indexByUser(Request $request)
     {
+        Gate::authorize('list-izin');
+        
         $data = Izin::with(['user' => function ($q) {
             $q->select('id', 'nama');
         }])->where('user_id', auth()
@@ -34,6 +39,8 @@ class IzinController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create-izin');
+
         $request->validate([
             'tanggal_mulai' => 'required',
             'jenis_izin' => 'required',
@@ -56,6 +63,8 @@ class IzinController extends Controller
 
     public function show(string $id)
     {
+        Gate::authorize('show-izin');
+
         $data = Izin::with(['user' => function ($q) {
             $q->select('id', 'nama');
         }])->find($id);
@@ -65,6 +74,8 @@ class IzinController extends Controller
 
     public function update(Request $request, string $id)
     {
+        Gate::authorize('update-izin');
+        
         $request->validate([
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
@@ -85,6 +96,8 @@ class IzinController extends Controller
 
     public function destroy(string $id)
     {
+        Gate::authorize('delete-izin');
+        
         $izin = Izin::find($id);
         $izin->delete();
 
@@ -93,6 +106,8 @@ class IzinController extends Controller
 
     public function accept(string $id, Request $request)
     {
+        Gate::authorize('accept-izin');
+        
         $request->validate([
             'komentar' => 'required'
         ]);
@@ -108,6 +123,8 @@ class IzinController extends Controller
 
     public function reject(string $id, Request $request)
     {
+        Gate::authorize('reject-izin');
+        
         $request->validate([
             'komentar' => 'required'
         ]);
@@ -123,6 +140,8 @@ class IzinController extends Controller
 
     public function revise(string $id, Request $request)
     {
+        Gate::authorize('revise-izin');
+        
         $request->validate([
             'komentar' => 'required'
         ]);
@@ -138,6 +157,8 @@ class IzinController extends Controller
 
     public function cancel(string $id)
     {
+        Gate::authorize('cancel-izin');
+        
         $izin = Izin::find($id);
         $izin->update([
             'status' => 'dibatalkan',
