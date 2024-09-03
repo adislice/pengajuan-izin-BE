@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('jenis_izin');
             $table->string('alasan');
             $table->string('komentar')->nullable();
-            $table->enum('status', ['diajukan', 'ditolak', 'direvisi', 'diterima'])->default('diajukan');
+            $table->enum('status', ['diajukan', 'ditolak', 'direvisi', 'diterima', 'dibatalkan'])->default('diajukan');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

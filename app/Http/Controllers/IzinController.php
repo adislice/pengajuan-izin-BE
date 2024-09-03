@@ -135,4 +135,14 @@ class IzinController extends Controller
 
         return response()->json(['message' => "Izin status changed to 'direvisi'"]);
     }
+
+    public function cancel(string $id)
+    {
+        $izin = Izin::find($id);
+        $izin->update([
+            'status' => 'dibatalkan',
+        ]);
+
+        return response()->json(['message' => "Izin status changed to 'dibatalkan'"]);
+    }
 }

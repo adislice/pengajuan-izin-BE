@@ -46,6 +46,7 @@ Route::group([
     Route::put('izin/{id}/accept', [IzinController::class, 'accept']);
     Route::put('izin/{id}/reject', [IzinController::class, 'reject']);
     Route::put('izin/{id}/revise', [IzinController::class, 'revise']);
+    Route::put('izin/{id}/cancel', [IzinController::class, 'cancel']);
 
     Route::get('me', function() {
         return auth()->user();
