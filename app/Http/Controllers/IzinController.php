@@ -18,21 +18,11 @@ class IzinController extends Controller
         if ($request->filled('status')) {
             $query = $query->where('status', $request->status);
         }
+
+        if (auth()->user()->level == 2) {
+            $query = $query->where('user_id', auth()->user()->id);
+        }
         $data = $query->latest()->paginate(10, ['id', 'user_id', 'tanggal_mulai', 'tanggal_selesai', 'jenis_izin', 'status']);
-
-        return response()->json($data);
-    }
-
-    public function indexByUser(Request $request)
-    {
-        Gate::authorize('list-izin');
-        
-        $data = Izin::with(['user' => function ($q) {
-            $q->select('id', 'nama');
-        }])->where('user_id', auth()
-        ->user()->id)
-        ->latest()
-        ->paginate(10, ['id', 'user_id', 'tanggal_mulai', 'tanggal_selesai', 'jenis_izin', 'status']);
 
         return response()->json($data);
     }

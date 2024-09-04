@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register']);
 
 Route::group([
     'middleware' => 'auth:api'
@@ -39,7 +40,6 @@ Route::group([
     Route::post('user/{id}/verify', [UserController::class, 'verify']);
 
     Route::get('izin', [IzinController::class, 'index']);
-    Route::get('izin/by-user', [IzinController::class, 'indexByUser']);
     Route::post('izin', [IzinController::class, 'store']);
     Route::get('izin/{id}', [IzinController::class, 'show']);
     Route::put('izin/{id}', [IzinController::class, 'update']);
