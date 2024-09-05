@@ -32,6 +32,7 @@ Route::group([
     Route::post('auth/logout', [AuthController::class, 'logout']);
     Route::post('auth/refresh', [AuthController::class, 'refresh']);
     Route::post('auth/user', [AuthController::class, 'getLoggedUser']);
+    Route::put('auth/change-password', [AuthController::class, 'changePassword']);
 
     Route::get('user', [UserController::class, 'index']);
     Route::get('user/{id}', [UserController::class, 'show']);
